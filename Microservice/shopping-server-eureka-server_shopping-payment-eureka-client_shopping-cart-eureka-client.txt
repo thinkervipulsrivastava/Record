@@ -143,5 +143,11 @@ http://localhost:8082/shopping-payment/8000
 Response: payment with8000
 
 
+Note:
+
+Spring cloud eureka is used to register your microservice where
+spring cloud config used to centralize common configuration across all the microservice
+
+
 
 	
