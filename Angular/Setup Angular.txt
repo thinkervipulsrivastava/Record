@@ -1,0 +1,15 @@
+Download node js
+Download Visual Studio
+
+version?
+
+node -v
+npm -v
+
+Angular cli
+
+npm install -g @angular/cli
+
+Angular Cli version ?
+
+ng --version

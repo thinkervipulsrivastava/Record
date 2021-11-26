@@ -1,0 +1,196 @@
+Steps
+
+1:
+controller
+repository
+service
+model
+config
+
+2:
+package com.example.daily.springsecurityjpaapi.model;
+User.java
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+
+
+ @Id
+ @GeneratedValue
+    private int user_id;
+    private String password;
+    private String email;
+	@OneToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable (name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name ="role_id"))
+	private Set <Role> roles;
+
+3:	
+Role.java
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+
+ @Id
+    @GeneratedValue
+    private int role_id;
+    private String role;
+	
+4:
+application.properties
+#Spring datasource
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/vipuldb
+spring.datasource.username=root
+spring.datasource.password =root123
+spring.datasource.testWhileIdle=true
+spring.datasource.validationQuery=SELECT 1
+#----------------------------#
+## Spring JPA
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.hibernate.naming-strategy=org.hibernate.cfg.ImprovedNamingStrategy
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
+hibernate.format_sql=true;	
+
+5:
+package com.example.daily.springsecurityjpaapi.repository;
+UserRepository.java
+RoleRepository.java
+	
+6:
+
+public interface UserRepository extends JpaRepository<User, Integer> 
+
+public interface RoleRepository extends JpaRepository<Role, Integer> 
+
+7:
+package com.example.daily.springsecurityjpaapi.controller;
+AdminController.java
+
+8:
+@RestController
+@RequestMapping("/secure/rest")
+
+@Autowired
+UserRepository userRepository;
+
+@Autowired
+private BCryptPasswordEncoder passwordEncoder;
+
+   @PostMapping ("/admin/add")
+    public String addUserByAdmin (@RequestBody User user) {
+        String pwd = user.getPassword();
+        String encryptPassword = passwordEncoder.encode(pwd);
+        user.setPassword(encryptPassword);
+        userRepository.save(user);
+        return "user added successfully";
+    }
+
+8:
+package com.example.daily.springsecurityjpaapi.config;
+SecurityConfig.class
+
+@Configuration
+
+public class SecurityConfig extends WebSecurityConfigurerAdapter 
+
+protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable ();
+}
+	
+@Bean
+public BCryptPasswordEncoder encodePwd () {
+     return new BCryptPasswordEncoder();
+}
+
+9: 
+Postman
+
+Post
+
+http://localhost:8080/secure/rest/admin/add
+
+{
+    "user_id": 143,
+    "username" : "Vipul",
+    "password" : "password",
+    "email" : "abc@gmail.com",
+    "roles" :[{
+        "role" : "ADMIN"
+    }]       
+}
+
+10:
+ @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(encodePwd());
+    }
+	
+ 11:
+ 
+ package com.example.daily.springsecurityjpaapi.service;
+ 
+ @Service
+public class CustomUserDetailsService implements UserDetailsService {
+ 
+  @Autowired
+    private UserRepository repository;
+	
+	ALT + Insert
+	
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = repository.findByUsername (username);
+        CustomUserDetails userDetails = null;
+        if (user != null) {
+            userDetails = new CustomUserDetails();
+            userDetails.setUser(user);
+        } else {
+            throw new UsernameNotFoundException("User not exist with name :" + username);
+        }
+        return userDetails;
+    }
+	
+12:
+@Getter
+@Setter
+public class CustomUserDetails implements UserDetails {
+
+Alt + Insert
+ @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return user.getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE" + role)).collect(Collectors.toList());
+    }
+
+    @Override
+    public String getPassword() {
+        return user.getPassword();
+    }
+
+    @Override
+    public String getUsername() {
+        return user.getUsername();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+13:
+SecurityConfig.java	
+
+@EnableWebSecurity
+
+  @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable ();
+
+        http.httpBasic().and().authorizeRequests().antMatchers("/rest/**").permitAll().and().
+                authorizeRequests().antMatchers("/secure/**").hasAnyRole("ADMIN").anyRequest().authenticated().and()
+                .formLogin().permitAll();

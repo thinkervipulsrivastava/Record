@@ -1,0 +1,102 @@
+Steps
+
+1:
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+@EnableWebSecurity
+
+2:
+package com.example.daily.springsecurityapi.controller;
+ApplicationController.java
+
+import org.springframework.web.bind.annotation.RestController;
+@RestController
+
+import org.springframework.web.bind.annotation.RequestMapping;
+@RequestMapping ("/rest/auth")
+
+import org.springframework.web.bind.annotation.GetMapping;
+@GetMapping ("/getMsg")
+
+3:
+application.properties
+spring.security.user.name = vipul
+spring.security.user.password = password
+
+4 :
+
+http://localhost:8080/rest/auth/getMsg
+password
+
+Disadvantage 
+Role based security we can not do in the application.properties
+
+5: 
+package com.example.daily.springsecurityapi.config;
+SpringSecurityConfig.java 
+
+6:
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
+
+7:
+import org.springframework.context.annotation.Configuration;
+@Configuration
+
+8:
+Alt + Insert (Intellij)
+Override method
+a: configure (AuthenticationManagerBuilder auth)
+        auth.inMemoryAuthentication().withUser("Vipul").password("password").roles("ADMIN");
+		
+		// security for all api
+b: configure (HttpSecurity http)
+		http.csrf().disable();
+        http.authorizeRequests().anyRequest().fullyAuthenticated().and().httpBasic();
+
+9:
+import org.springframework.context.annotation.Bean;
+@Bean
+public static NoOpPasswordEncoder passwordEncoder () {
+	return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+}
+
+10
+http://localhost:8080/rest/auth/getMsg
+Vipul
+password
+
+11:
+If we have lot of controller, we can do security with the help of url based security
+
+12:
+package com.example.daily.springsecurityapi.controller;
+NoAuthController.java
+
+@RestController
+
+@RequestMapping ("/noAuth/rest")
+
+@GetMapping ("/sayHi")
+
+13:
+
+//security based on url
+configure(HttpSecurity http)
+http.authorizeRequests().antMatchers("/rest/**").fullyAuthenticated().and().httpBasic();
+
+14:
+http://localhost:8080/noAuth/rest/sayHi
+Vipul
+password
+
+15:
+//security based on role
+configure(HttpSecurity http)
+http.authorizeRequests().antMatchers("/rest/**").hasAnyRole("ADMIN").anyRequest().fullyAuthenticated().and().httpBasic();
+
+16:
+
+http://localhost:8080/rest/auth/getMsg
+Vipul
+password
+
