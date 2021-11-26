@@ -1,0 +1,147 @@
+
+Spring Cloud Eureka
+shopping-server-eureka-server
+
+Eureka is a service registry or embedded server provided by netflix third party which integrate with spring framework
+
+Step
+
+1:
+spring.start.io
+
+Dependency:
+Web, lombok, Dev, Eureka Server
+
+2:
+
+package com.example.daily.shoppingservereurekaserver;
+ShoppingServerEurekaServerApplication.java
+
+@EnableEurekaServer
+
+3:
+application.yml
+
+server:
+  port: 8761
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+
+
+spring:
+  application:
+    name: shopping-server
+	
+4:
+	
+Eureka Client project
+shopping-payment-eureka-client
+
+package com.example.daily.shoppingpaymenteurekaclient;
+
+ShoppingPaymentEurekaClientApplication.java
+
+@EnableEurekaClient
+
+5:
+package com.example.daily.shoppingpaymenteurekaclient.controller;
+PaymentController.java
+
+@RestController
+@RequestMapping ("/payment-provider/")
+
+  @GetMapping ("/payNow/{price}")
+    public String payNow (@PathVariable int price) {
+	
+6:
+application.yml
+server:
+  port: 8081
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+
+spring:
+  application:
+    name: PAYMENT-SERVICE
+
+7:
+Up Eureka Server and then eureka client project
+
+hit: http://localhost:8761
+
+8:
+Create another client project
+shopping-cart-eureka-client
+dependency : euraka discovery client, web , lombok , dev
+
+package com.example.daily.shoppingcarteurekaclient;
+@EnableEurekaClient
+
+8:
+
+package com.example.daily.shoppingcarteurekaclient;
+
+ShoppingCartEurekaClientApplication.java
+
+	@LoadBalanced
+	@Bean
+	public RestTemplate getTemplate () {
+		return new RestTemplate();
+	}
+
+9:
+package com.example.daily.shoppingcarteurekaclient.controller;
+ShoppingController.java
+
+@RestController
+@RequestMapping
+
+ @Autowired
+    private RestTemplate restTemplate;
+	
+	@GetMapping ("/shopping-payment/{price}")
+    public String invokePaymentService (@PathVariable int price) {
+    String url = "http://PAYMENT-SERVICE/payment-provider/payNow/" +price;
+    return restTemplate.getForObject(url, String.class);
+	}
+
+10:
+application.yml
+server:
+  port: 8082
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry : true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+spring:
+  application:
+    name: CART-SERVICE
+11:
+	
+Up Eureka Server, client project
+
+12:
+
+Hit Postman
+
+http://localhost:8082/shopping-payment/8000
+
+Response: payment with8000
+
+
+
+	

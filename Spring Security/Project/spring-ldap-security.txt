@@ -1,0 +1,30 @@
+Step
+
+1:
+
+pom.xml
+Web
+LDAP
+Security
+
+	<dependency>
+			<groupId>org.springframework.ldap</groupId>
+			<artifactId>spring-ldap-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-ldap</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.unboundid</groupId>
+			<artifactId>unboundid-ldapsdk</artifactId>
+		</dependency>
+		
+2:
+
+LDAP is an open, vendor-neutral application protocol for accessing and maintaining that data. LDAP can also tackle authentication, 
+so users can sign on just once and access many different files on the server. LDAP is a protocol, so it doesn't 
+specify how directory programs work.
+		
