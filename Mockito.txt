@@ -1,0 +1,70 @@
+Mockito
+
+Mocking is a way to test the functionality of a class in isolation
+
+Mocking does not require a database connection or properties file read or file to test a functionality
+Mock objects do the mocking of the real service. A mock object returns a dummy data corressponding to some dummy input passed to it
+
+Mockito uses Reflection in order to create mock objects for a given interface. Mock objects are nothing but proxy for actual implementation
+
+Mockito is a mocking framework and java based library that is used for effective unit testing of Java application
+
+Mockito is used to mock interfaces so that a dummy functionalty can be added to a mock inteface that can be used in unit testing
+
+The main purpose of using the Mockito frameowork is to simplify the development of a test by mocking a external dependencies annd use them in the test 
+code
+
+Note : We can also use Mockito with other testing freameworkk like Junit and TestNg
+
+Mockito
+Why Need for Mocking
+
+Understand reason for mocking
+
+Reason 1
+
+If you want to test a component that depends on the other component, but that component is under development. It generally happens when working
+in a team and differnet component are divided between several team -members . In that case, mocking plays an important role in the testing. Without 
+Mocking , we need to wait for the completion of the required elements for testing
+
+Reason 2
+As you know the real components perform slow operations while dealing with database connections or another complex read/ write operation. 
+Sometimes the database queries can take longer time to execute. In such cases, we require mock objects to perform testing and it can be 
+done using mockito
+
+Reason 3
+If there is a infrastructure concern that makes the testing impossible. For example, when we create a connection to the database , some issues
+related to configurations occurs, It requires mocking for creating mock components to provide unit testing
+
+Benefits of Mockito
+
+Annotation Supports : It supports creating mocks using various annnotations
+No Handwriting : We do not need to write mock objects by own
+Return value : Supports return value
+Exception support : It supports exception
+Order Check Support : it also support check on order of method calls
+Refactoring Safe : Renaming interface method names or reordering parameters will not break the test code as Mocks are created at run time
+
+Go to Google
+
+Mockito maven dependency
+click on org.mockito
+
+1 : Mockito core 
+
+2 : mockito-all
+
+3 : mockito-junit-jupiter
+
+4 : mockito-inline
+
+5 : mockito-testNG
+
+6 : mockito-scala
+ and all other dependency at one place
+ 
+ 
+ Paste in pom.xml in your project
+ mockito-core
+ 
+ 

@@ -1,0 +1,51 @@
+
+Lambda Expression
+
+The expression through which can represent we can represent an anonymous function
+
+Anonymous: Nameless / Unknown
+
+Anonymous Function : A method which don't have any name or modifier
+
+Functional Interface
+
+The interface who contains only one abstract method but can have multiple default and static method is called Functional Interface
+
+Ex:
+Runnble have run ()
+Callable have call ()
+Comparable have compareTo ()
+Comparator have compare ()
+
+Consumer
+Predicate
+Supplier
+
+
+Consumer Functional Interface
+
+Consumer<T> is an in-built functional interface introduced in Java 8. Consumer can be used in all contexts where an object needs to be consumed
+i.e taken as input, and some operation is to be performed on the object without returning any result
+
+// abstract method
+void accept (T t);
+
+// default method
+andThen (Consumer <? super T after)
+
+Predicate Functional Interface
+
+Predicate is used for conditional check
+
+return boolean (True / False)
+
+// abstract method
+boolean test (T t)
+
+Supplier Functional Interface
+
+Supplier can be used in all contexts where there is no input but an output is executed
+
+T get ();
+
+ 
