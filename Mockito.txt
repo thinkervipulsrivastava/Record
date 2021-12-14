@@ -67,4 +67,136 @@ click on org.mockito
  Paste in pom.xml in your project
  mockito-core
  
- 
+ // 1 EmployeeService Mockito TEST class
+public class EmployeeServiceTest {
+private EmployeeService employeeService;
+
+public static void main (String [] args) {
+	new EmployeeServiceTest ().testfetchEmployeeById ();
+	}
+
+public void testFetchEmployeeById () {
+	employeeService = Mockito.mock (EmployeeService.class);
+	Employee employee = getEmployee ();
+	Mockito.when (employeeService.fetchEmployeeById(10)).thenReturn (employee);
+	System.out.println (employeeService.fetchEmployeeById (10));
+	}
+	
+private Employee getEmployee () {
+	Employee employee = new Employee ();
+	employee.SetEmployeeId(10);
+	employee.setDOJ (new Date ());
+	employee.setName ("VV");
+	employee.setEmail ("vv@gmail.com");
+	return employee;
+
+
+// 2 EmployeeService Mockito TEST class Using Annotation
+public class EmployeeServiceTest {
+@Mock
+private EmployeeService employeeService;
+
+public static void main (String [] args) {
+	new EmployeeServiceTest ().testfetchEmployeeById ();
+	}
+
+public void testFetchEmployeeById () {
+	//employeeService = Mockito.mock (EmployeeService.class);
+	MockitoAnnotation.openMocks (this); // enable annotation
+	Employee employee = getEmployee ();
+	Mockito.when (employeeService.fetchEmployeeById(10)).thenReturn (employee);
+	System.out.println (employeeService.fetchEmployeeById (10));
+	}
+	
+private Employee getEmployee () {
+	Employee employee = new Employee ();
+	employee.SetEmployeeId(10);
+	employee.setDOJ (new Date ());
+	employee.setName ("VV");
+	employee.setEmail ("vv@gmail.com");
+	return employee;
+
+
+Go to Google Mockito maven dependency
+
+paste mockito-junit-jupiter in the pom.xml (it include mockito-core dependency)
+
+// Mockito using Junit 5
+
+@ExtendWith (value = {MockitoExtension.class })
+@TestInstance (value = Lifecycle.PER_CLASS)
+public class EmployeeServiceTest {
+private EmployeeService employeeService;
+
+
+@BeforeAll// use method static or use TestInstance annotation 
+public void setUp () {
+	employeeService = Mockito.mock (EmployeeService.class);
+}
+@Test
+public void testFetchEmployeeById () {
+//	employeeService = Mockito.mock (EmployeeService.class);
+	Employee employee = getEmployee ();
+	Mockito.when (employeeService.fetchEmployeeById(10)).thenReturn (employee);
+	//System.out.println (employeeService.fetchEmployeeById (10));
+	assertEquals (10, employeeService.fetchEmployeeById (10).getEmployeeById ());
+	assertEquals ("VV", employeeService.fetchEmployeeById (10).getEmployeeName ());
+	}
+	
+private Employee getEmployee () {
+	Employee employee = new Employee ();
+	employee.SetEmployeeId(10);
+	employee.setDOJ (new Date ());
+	employee.setName ("VV");
+	employee.setEmail ("vv@gmail.com");
+	return employee;
+
+
+// Customising using annotation
+
+@ExtendWith (value = {MockitoExtension.class })
+@TestInstance (value = Lifecycle.PER_CLASS)
+public class EmployeeServiceTest {
+@Mock
+private EmployeeService employeeService;
+
+/* // If you are using MockitoExtension, you do not need to write function inside @BeforeAll
+@BeforeAll// use method static or use TestInstance annotation 
+public void setUp () {
+	//employeeService = Mockito.mock (EmployeeService.class);
+	MockitoAnnotations.openMocks (this);
+}
+*/
+@Test
+public void testFetchEmployeeById () {
+//	employeeService = Mockito.mock (EmployeeService.class);
+	Employee employee = getEmployee ();
+	Mockito.when (employeeService.fetchEmployeeById(10)).thenReturn (employee);
+	//System.out.println (employeeService.fetchEmployeeById (10));
+	assertEquals (10, employeeService.fetchEmployeeById (10).getEmployeeById ());
+	assertEquals ("VV", employeeService.fetchEmployeeById (10).getEmployeeName ());
+	
+	assertAll ("testFetchEmployeeById", () -> assertEquals (10, employeeService.fetchEmployeeById (10).getEmployeeById ()),
+				() -> assertEquals ("VV", employeeService.fetchEmployeeById (10).getEmployeeName ()),
+				() -> asserEquals ("vv@gmail.com", employeeService.fetchEmployeeById (10).getEmail()));
+	}
+	
+private Employee getEmployee () {
+	Employee employee = new Employee ();
+	employee.SetEmployeeId(10);
+	employee.setDOJ (new Date ());
+	employee.setName ("VV");
+	employee.setEmail ("vv@gmail.com");
+	return employee;
+
+
+// @Mock Annotation
+
+Most widely used annotation in Mockito is @Mock
+Use @Mock annotation to create and inject mocked instances without having to call Mockito.mock(abc.class) manually
+We can use Mockito class mock () method to create a mock object of a given class or interface
+
+// @Spy Annotation
+
+Use @Spy annotation to spy on an existing instances
+We can use Mockito Spy to partial mock an object. When we spy on an object, the real methods are being called unless it's stubbed

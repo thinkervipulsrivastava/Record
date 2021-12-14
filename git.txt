@@ -1,0 +1,28 @@
+git remote add origin git@github.com:thinkervipulsrivastava/Learning.git
+git init
+git remote add origin https://github.com/thinkervipulsrivastava/Life.git
+git add .
+git status
+git commit -m "Commit"
+git push -u origin master
+
+
+
+ssh-keygen -t ed25519 -C "thinkervipulsrivastava@gmail.com"
+
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGZgkAqM0cpDlUWaMoOc9PDHk9axw6L8dQvqi+EOwrEV thinkervipulsrivastava@gmail.com
+
+git config --global user.email "thinkervipulsrivastava@gmail.com"
+
+git config --global user.name "Vipul Srivastava"
+
+git push -u origin master
+
+git remote add origin https://github.com/thinkervipulsrivastava/Intellij.git
+
+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
+curl -H 'Authorization: token <MYTOKEN>' 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
+
+
+https://forms.gle/H4bDh4LyuXsWWmRT9
+
