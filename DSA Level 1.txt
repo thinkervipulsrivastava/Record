@@ -1,0 +1,282 @@
+
+1: Get Subsequence Using ArrayList
+
+//String demo
+String str = "hello" // String declare
+//System.out.println (str);] 
+char ch = str.charAt (0);
+for (int i = 0; i < str.length (); i ++) { //String Length
+	char ch = str.charAt (i); // String character
+	System.out.println (ch);
+}
+O/P
+hello
+h
+e
+l
+l
+o
+
+If Expected
+"ell"
+
+01234
+hello
+String ss = str.substring (1, 3); //el
+String ss = str.substring (1, 4); //ell
+String ss = str.substring (1, 5); //ello
+String ss = str.substring (2); //llo
+System.out.println (ss);
+
+ArrayList <Integer> list = new ArrayList<>();
+System.out.println (list); //[]
+System.out.println (list.size ()); //0
+list.add (10);
+list.add (20);
+list.add (30);
+list.add (40);
+System.out.println (list + "->" + list.size ()); // [[10,20,30,40] -> 4
+
+for (int val: list) {
+	System.out.println (val); 
+	/*
+	10
+	20
+	30
+	40
+	*/
+}
+
+for (int i = 0;i < list.size (); i ++ ) {
+int val = list.get (i);
+System.out.println (val); 
+	/*
+	10
+	20
+	30
+	40
+	*/
+}
+
+list.set (2, 300);
+System.out.println (list + "->" + list.size ()); // [[10,20,300,40] -> 4
+list.add (2, 3000);
+System.out.println (list + "->" + list.size ()); // [[10,20,3000,300,40] -> 5
+
+abc // subsquence
+2^3 // 2 ^ n
+_ _ _
+_ _ c
+_ b _
+_ b c
+a _ _
+a _ c
+a b _
+a b c
+
+//Substring
+//abc
+n (n + 1) / 2
+a
+ab
+abc
+b
+bc
+c
+
+
+Q 1 : getSubSequence (abc)
+
+Expected
+getss (abc) = 
+_ _ _
+_ _ c
+_ b _
+_ b c
+a _ _
+a _ c
+a b _
+a b c
+
+Faith 
+getss (ab)
+_ _
+_ c
+b _
+b c
+
+
+Relation
+getss (abc) = a + getss (bc);
+
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+		Scanner input = new Scanner (System.in);
+		String str = input.next ();
+		ArrayList<String> res = gss(str);
+		System.out.println (res);
+    }
+
+	//Faith
+	_ _, _ c, b _ , b c
+	// Expected
+	_ _ _,_ _ c, _ b _ ,_ b c,a _ _,a _ c,a b _ ,a b c
+    public static ArrayList<String> gss(String str) {
+		char a = str.charAt (0); //1
+		String ros = str.substring (1); //2
+        ArrayList <String> rres = gss (ros); // _ _, _ c, b _ , b c//3
+		
+		ArrayList <String> mres = new ArrayList <>();//4
+		for (String rstr : rres ) {
+		mres.add ("" + rres);//4
+		}
+	for (String rstr : rres ) {
+		mres.add (a + rres);//5
+    }
+	return mres;
+
+}
+
+Analyse
+// abc
+
+123456 (Returning top to bottom and then bottom to top
+a
+bc
+rres = mres : _ _ _ _, _ b _ _,_ _ c _,_ b c _ , _ _ _,a b _ _,a _ c _,a b c _ // 
+123456
+b
+c
+rres = mres : _ _ _,b _ _,_ c _, b c _ 
+123456
+c
+_
+return "" 
+rres = mres : _ _, c _ 
+
+
+*************************************************************************************************************************************************
+
+2: Get Kpc
+
+    0 -> .;
+    1 -> abc
+    2 -> def
+    3 -> ghi
+    4 -> jkl
+    5 -> mno
+    6 -> pqrs
+    7 -> tu
+    8 -> vwx
+    9 -> yz
+
+573
+5 (mno)
+7(tu)
+3(ghi)
+// faith
+57
+[mt, mu, nt, nu, ot, ou]
+Expected 
+573
+[mtg. mug, ntg, nug, otg, oug, mth, muh, nth, nuh, oth, ouh, mti, mui, nti, nui, oti, oui]
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner input = new Scanner (System.in);
+		String a = input.nextInt ();
+		ArrayList<String> list = getKPC (a);
+		System.out.println (list);
+    }
+	    
+	static String[] codes = {".;", "abc","def", "ghi", "jkl", "mno", "pqrs", "tu", "vwx","yz"};
+    public static ArrayList<String> getKPC(String str) {
+	//678
+			if (str.size () == 0) {
+			ArrayList <String> rbln = new ArrayList<>(); //7
+			rbln.add ();
+			return rbln;
+			}
+			char ch = str.charAt (0); //6 //1
+			String ros = str.substring (1); //78 //2
+			
+	ArrayList<String> rres = getKPC (ros); //6 words of 78 //3
+	ArrayList<String> mres = new ArrayList<>();
+	String codesforce = codes [ch]; //4
+	for (int i = 0; i < codesforce.length (); i ++) { 
+		char chcode = codesforce.charAt (i); //5
+		for (String rstr : rres) { //6
+			mres.add (chcode + rstr);
+	}
+}
+O/P
+123
+6
+78
+1234
+7
+8
+123456
+8
+""
+codesforce: codes[6]
+ch : [_p, _q, _r, _s, 
+
+17
+""
+return  ""
+
+
+**********************************************************************************************************************************************
+
+
+3: Get Stair Paths
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+		Scanner input = new Scanner (System.in);
+		int n = input.nextInt ();
+		ArrayList <String> paths = getStairPaths (n);
+		System.out.println (paths);
+    }
+
+    public static ArrayList<String> getStairPaths(int n) {
+		        if (n == 0) {
+		ArrayList<String> bres = new ArrayList<>();
+		bres.add("");
+		return bres;
+		} else if (n < 0) {
+		ArrayList<String> bres = new ArrayList<>();
+		return bres;
+		}
+		ArrayList<String> paths1 = getStairPaths (n - 1);
+		ArrayList<String> paths2 = getStairPaths (n - 2);
+		ArrayList<String> paths3 = getStairPaths (n - 3);
+		
+		ArrayList<String> paths = new ArrayList<>();
+		for (String path: paths1) {
+			paths.add (1 + path);
+		}
+		for (String path: paths2) {
+			paths.add (2 + path);
+		}
+		for (String path: paths3) {
+			paths.add (3 + path);
+		}
+        return paths;
+    }
+    
+}

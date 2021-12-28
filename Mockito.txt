@@ -200,3 +200,202 @@ We can use Mockito class mock () method to create a mock object of a given class
 
 Use @Spy annotation to spy on an existing instances
 We can use Mockito Spy to partial mock an object. When we spy on an object, the real methods are being called unless it's stubbed
+
+@ExtendWith (value = {MockitoExtension.class })
+public class EmployeeServiceTest {
+
+@Spy // actual method will be called
+private EmployeeServiceImpl employeeService;
+
+
+@Test
+public void testFetchEmployeeById () {
+	System.out.println employeeService.hashCode ());
+	
+	Employee employee = employeeService.fetchEmployeeById (1);
+	System.out.println (employee);
+	}
+/*	
+private Employee getEmployee () {
+	Employee employee = new Employee ();
+	employee.SetEmployeeId(10);
+	employee.setDOJ (new Date ());
+	employee.setName ("VV");
+	employee.setEmail ("vv@gmail.com");
+	return employee;
+*/
+
+// Mock (Not actual implementation)
+
+@ExtendWith (value = {MockitoExtension.class })
+public class EmployeeServiceTest {
+
+@Mock // fake object
+private EmployeeService employeeService;
+
+
+@Test
+public void testFetchEmployeeById () {
+	System.out.println employeeService.hashCode ());
+	Mockito.when (employeeService.fetchEmployeeById (Mockito.anyInt ())).thenReturn (getEmployee());
+	Employee employee = employeeService.fetchEmployeeById (10);
+	System.out.println (employee);
+	}
+private Employee getEmployee () {
+	Employee employee = new Employee ();
+	employee.SetEmployeeId(10);
+	employee.setDOJ (new Date ());
+	employee.setName ("VV");
+	employee.setEmail ("vv@gmail.com");
+	return employee;
+
+//
+
+public class EmployeeServiceTest {
+
+/* Alternative
+@Spy // actual method will be called
+private EmployeeServiceImpl employeeService;
+*/
+
+@Test
+public void testFetchEmployeeById () {
+	
+	EmployeeServiceImpl employeeService = Mockito.spy (EmployeeServiceImpl.class); // or do static spy import
+	
+	System.out.println employeeService.hashCode ());
+	
+	Employee employee = employeeService.fetchEmployeeById (1);
+	System.out.println (employee);
+	}
+	
+//
+
+public class EmployeeServiceTest {
+
+/* Alternative
+@Spy // actual method will be called
+private EmployeeServiceImpl employeeService;
+*/
+
+@Test
+public void testFetchEmployeeById () {
+	
+	ArrayList<String> spyMyList = Mockito.spy (new ArrayList<String>();
+		ArrayList<String> spyMyList2 = Mockito.mock (ArrayList.class);
+
+	spyMyList.add ("aa");
+	spyMyList.add("cc");
+	
+	spyMyList2.add ("aa");
+	spyMyList2.add("cc");
+	
+	asserEquals (2, spyMyList.size ()); // true
+	asserEquals (2, spyMyList2.size ()); // false
+	}
+	
+//
+@ExtendWith (MockitoExtension.class)
+//@TestInstance = value = Lifecycle.PER_CLASS) To enable Annotation use above or this line
+public class EmployeeServiceTest {
+
+@Spy // actual method will be called
+private EmployeeServiceImpl employeeService;
+
+/* //  To enable annotation use this line or use @ExtendWith (MockitoExtension.class)
+@BeforeAll
+public void setUp () {
+MockitoAnnotation.openMocks (this); 
+}
+*/
+@Test
+public void testFetchEmployeeById () {
+	
+
+
+	spyMyList.add ("aa");
+	spyMyList.add("cc");
+	
+	asserEquals (2, spyMyList.size ()); // true
+
+	//Stubbing a spy
+	Mockito.doReturn (40).when (spyMyList).size();
+	asserEquals (40, spyMyList.size ());
+
+
+	
+// NotAMockException
+
+//	Mockito.doReturn (40).when (spyMyList).size();
+// Use spy method when come this exception	
+
+
+// Mockito ArgumentCaptor 
+// @Captor Annotation
+
+Mockito ArgumentCaptor
+Mockito org.mockito.ArgumentCaptor<T> class is used to capture arguments for mocked methods. ArgumentCaptor we can use with Mockito verify () methods
+to get the arguments passed when any method is called. In this way we can provide additional Junit assertions for our Unit tests.
+
+We may use to create org.mockito.ArgumentCaptor<T> instance for any class then its capture () method is used to verify () method
+
+Finally we may get captured arguments from getValue () and getAllValues () methods
+
+ArgumentCaptor getValue() method can be used when we have captured a single argument. If the verify method was called multiple times
+then getValue() method will return the latest captured value only
+
+@ExtendWith (value = {MockitoExtension.class})
+public class MockitoCaptorTest {
+
+
+@Captor
+private ArgumentCaptor<String> argumentCaptor;
+
+@Test
+void capterTest () {
+	
+	List<String> mockList = Mockito.mock (List.class);
+	mockList.add("VV");
+	
+	//ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass (String.class);
+	
+	Mockito.verify (mockList).add (argumentCaptor.capture ());
+	
+	asserEquals ("VV", argumentCaptor.getValue ());
+	}
+}
+
+
+// Customised object
+
+@ExtendWith (value = {MockitoExtension.class})
+public class MockitoCaptorTest {
+
+
+@Captor
+private ArgumentCaptor<Person> argumentCaptor;
+
+@Test
+void capterTest () {
+	
+	List<Person> mockList = Mockito.mock (List.class);
+	mockList.add (new Person (10, "KK");
+	mockList.add (new Person (20, "PK");
+	mockList.add (new Person (30, "SK");
+	
+	//ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass (String.class);
+	
+	//Mockito.verify (mockList).add (argumentCaptor.capture ());
+	
+	Mockito.verify (mockList, times (3)).add (argumentCaptor.capture ());
+	List <Person> personList = argumentCaptor.getAllValues ();
+	
+	asserEquals (10, personList.get (0).getId ());
+	assertEquals ("KK", personList.get (0).getName ());
+	
+	asserEquals (20, personList.get (1).getId ());
+	assertEquals ("PK", personList.get (1).getName ());
+	
+	}
+}
+

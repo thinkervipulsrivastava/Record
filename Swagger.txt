@@ -1,0 +1,44 @@
+
+Spring Boot RestFul API Documentation with Swagger 2
+
+Spring Boot Restful API help us to provide the documentation of Restful to the consumer
+
+Documentation : This documentation help consumer 
+which service is available
+the signature
+the expected input
+To check serice is up
+Documentation need to be updated with exposed service changes automatically
+
+If documentation updation happen manually it will be tedious process as the number of Rest Services increase that's why Swagger came into picture
+
+What is Swagger ?
+
+Swagger is widely used for visualization APIs
+and Swagger UI it provides online sandbox for frontend developers
+
+Swagger is a tool, a specifiaction and complete framework implementation
+for producing the visual representation of RESTful Web Services
+
+We need the Swagger dependency
+
+springfox-swagger-ui
+
+springfox-swagger2
+
+To enable the Swagger2 We use the annotation
+@EnableSwagger2
+We will create a Docket bean in a Spring Boot configuration 
+
+@Configuration
+@EnableSwagger2
+public class SwaggerConfig {
+@Bean
+public Docket productApi (){
+return new Docket (DocumentationType.SWAGGER2)
+.select.apis (RequestHandlerSelectors.basePackage ("com.infotech.controller"))
+.paths (regex ("/hello."))
+.build ();
+}
+}
+
