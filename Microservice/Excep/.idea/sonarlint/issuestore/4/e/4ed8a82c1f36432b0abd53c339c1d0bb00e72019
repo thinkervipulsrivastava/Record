@@ -1,0 +1,8 @@
+
+8
+java:S1165"Make this "abcd" field final.(žèÜ’øÿÿÿÿ
+C
+java:S1068"(Remove this unused "abcd" private field.(žèÜ’øÿÿÿÿ
+g	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(õÅ¾Ìüÿÿÿÿ
+0
+java:S1220""Move this file to a named package.

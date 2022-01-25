@@ -1,0 +1,84 @@
+There are a few companies that include system design rounds in their hiring process, even for freshers. Here are some resources that may be of assistance.
+If these are the companies you want to work for, LLD is a must-have for you.
+Uber, Atlassian, and BrowserStack are just a few examples.
+UBER - Technical + Hr round 
+https://lnkd.in/gTrxxYeh
+  Interview experience by Shubham Aggarwal
+
+ATLASSIAN - 1 round specific for LLD.
+https://lnkd.in/gTskSj4D
+
+
+BrowserStack - Online Assesment system design
+https://lnkd.in/gKEvWy-q
+
+
+https://lnkd.in/gxEfF-rs
+
+
+Topics you need to cover or basics you need to know? 
+
+1) Scalability 
+2) Load Balancing 
+3) Microservices
+4) Data sharding 
+For the above topics, I referred to Gaurav Sen youtube playlist :
+https://lnkd.in/gPY5gD2C
+
+
+Here are a few resources which can help you with your preparation for System design interviews:
+
+1) https://lnkd.in/gqiaqKa6
+
+2) Design a Hashmap - https://lnkd.in/g8VA2EQp
+
+3) Design a LRU cache - https://lnkd.in/g8VA2EQp
+
+4) Design a parking lot( Most asked) - 
+https://lnkd.in/geDqTzTk
+
+
+5) Design an online chat like Whatsapp(Most asked) - https://lnkd.in/gmErr8iA
+
+
+https://lnkd.in/gvirti7k
+
+Resources I used while preparing for MNC’s:
+1)  For starting with coding: 
+           Pepcoding Education Private Limited free course 
+i) Level 1: https://lnkd.in/gAtiJ4Hz
+
+ii) Level 2: https://lnkd.in/guHZr_i3
+
+
+2) For Core Subjects : 
+              i) DBMS and SQL-  Gate Smashers 
+                    https://lnkd.in/gcZacYs6
+
+              ii) Operating systems-   Pepcoding Education Private Limited 
+                     https://lnkd.in/gNBdTwnu
+
+              iii) OOPS- Code with Harry 
+                        https://lnkd.in/gSZ9B_yS
+
+                    
+              iv)  System design- Gaurav Sen
+https://lnkd.in/gABVQJJV
+
+
+   3) For Interviews : 
+i)coding questions-Raj Vikramaditya SDE sheet
+ii)For core subjects revisions: 
+DBMS - (Apna College)
+https://lnkd.in/gKY4VJmC
+ 9I5D6iddJbAoDzPEBVR6izf-j_7PXq3JQSC7KC2Q/edit
+
+OS- (Apna College)
+https://lnkd.in/gYtS8PeQ
+
+
+OOPS(Apna College)
+https://lnkd.in/gGDcc5pC
+
+
+

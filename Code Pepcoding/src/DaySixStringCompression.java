@@ -11,15 +11,25 @@ Input Format
 A String
 Output Format
 Two strings representing first compressed string and second compressed string respectively.
+Constraints
+1 <= length of string <= 1000
+Sample Input
+wwwwaaadexxxxxx
+Sample Output
+wadex
+w4a3dex6
  */
 
 
 
-public class DayThreeStringCompression {
+public class DaySixStringCompression {
     public static void main (String [] args) {
         Scanner input = new Scanner(System.in);
         String a = input.nextLine();
-        System.out.println (compressionOne (a));
+        String b = compressionOne (a);
+        System.out.print(b);
+        System.out.println (compressionTwo(b));
+
     }
 
     private static String compressionOne(String b) {
@@ -28,17 +38,31 @@ public class DayThreeStringCompression {
         // first String
         // if curr != prev
         // s += curr;
-
-        String curr = b.charAt(0) + "";
-        String prev = "";
+        String a = b.charAt(0) + "";
 
         for (int i = 1; i < b.length(); i ++) {
-            prev = b.charAt(i) + "";
+            char curr = b.charAt(i) ;
+             char prev = b.charAt(i -1);
             if  (curr != prev) {
-                curr += prev;
+                a += curr;
             }
         }
-        return curr;
+        return a;
+    }
+
+    public static String compressionTwo (String b) {
+        // I/P aaabbccdee
+        // O/P a3b2c2de2
+        String a = b.charAt(0) + " ";
+        int count = 1;
+        for (int i = 0; i < b.length(); i ++) {
+            char curr = b.charAt(i);
+            char prev = b.charAt(i - 1);
+            if (curr == prev) {
+                count ++;
+            }
+        }
+        return "";
     }
 
 
